@@ -1,0 +1,290 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-text: hsl(300deg 33% 99%);
+  --color-bg: hsl(120deg 3% 8%);
+  --color-link: hsl(157deg 53% 61%);
+  --color-link-hover: hsl(300deg 33% 99%);
+  --title-gr-1: hsl(240deg 33% 99%);
+  --title-gr-2: hsl(263deg 38% 53%);
+  --color-desc: #999;
+}
+
+html {
+  font-size: calc(100vw / 1920 * 10);
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: 'vinila', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica,
+    Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-transform: uppercase;
+}
+
+canvas {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Page Loader */
+.js .loading::before,
+.js .loading::after {
+  content: '';
+  position: fixed;
+  z-index: 1000;
+}
+
+.js .loading::before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+}
+
+.js .loading::after {
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border-radius: 50%;
+  opacity: 0.4;
+  background: var(--color-link);
+  animation: loaderAnim 0.7s linear infinite alternate forwards;
+}
+
+@keyframes loaderAnim {
+  to {
+    opacity: 1;
+    transform: scale3d(0.5, 0.5, 1);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-link);
+  outline: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: var(--color-link-hover);
+  outline: none;
+}
+
+/* Better focus styles from https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible */
+a:focus {
+  /* Provide a fallback style for browsers
+	 that don't support :focus-visible */
+  outline: none;
+  background: lightgrey;
+}
+
+a:focus:not(:focus-visible) {
+  /* Remove the focus indicator on mouse-focus for browsers
+	 that do support :focus-visible */
+  background: transparent;
+}
+
+a:focus-visible {
+  /* Draw a very noticeable focus style for
+	 keyboard-focus on browsers that do support
+	 :focus-visible */
+  outline: 2px solid red;
+  background: transparent;
+}
+
+.unbutton {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.unbutton:focus {
+  outline: none;
+}
+
+main {
+  position: relative;
+  display: grid;
+  grid-template-areas: 'main';
+  width: 100%;
+  height: 100vh;
+}
+
+.oh {
+  position: relative;
+  overflow: hidden;
+}
+
+.oh__inner {
+  will-change: transform;
+  display: inline-block;
+}
+
+.frame {
+  grid-area: main;
+  z-index: 1000;
+  position: relative;
+  width: 100%;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas: 'title' 'prev' 'sponsor' 'demos';
+  grid-gap: 0.5rem;
+  justify-items: start;
+  align-self: end;
+  justify-self: start;
+  pointer-events: none;
+  align-items: center;
+}
+
+body #cdawrap {
+  justify-self: start;
+}
+
+.intro__gallery {
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 20%);
+}
+
+.intro__gallery.intro__slider {
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7vh;
+}
+
+.intro__gallery__media {
+  padding: 2.5rem;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 0.75;
+}
+
+.intro__slider .intro__gallery__media {
+  padding: 0;
+  height: 60vh;
+  width: fit-content;
+  transform: translateY(0);
+}
+
+.intro__gallery__media--2 {
+  transform: translateY(10rem);
+}
+
+.intro__gallery__media--3 {
+  transform: translateY(30rem);
+}
+
+.intro__gallery__media--4 {
+  transform: translateY(20rem);
+}
+
+.intro__gallery__media--5 {
+  transform: translateY(40rem);
+}
+
+.intro__gallery__media--6 {
+  transform: translateY(10rem);
+}
+
+.intro__gallery__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.intro-title {
+  grid-area: main;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  cursor: default;
+  pointer-events: none;
+}
+
+.intro-title__main,
+.slider-title__main {
+  margin: 0;
+  font-size: clamp(1rem, 7vw, 10rem);
+  font-family: organetto-variable, sans-serif;
+  font-variation-settings: 'wdth' 100, 'wght' 400;
+}
+
+.intro-title__main > span,
+.slider-title__main > span {
+  background-image: linear-gradient(
+    45deg,
+    var(--title-gr-1),
+    var(--title-gr-2)
+  );
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+.intro-title__sub {
+  font-family: microgramma-extended, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: clamp(1rem, 4vw, 2rem);
+  display: block;
+}
+
+.slider-title {
+  opacity: 0;
+  pointer-events: none;
+  grid-area: main;
+  align-self: center;
+  justify-self: center;
+  position: relative;
+}
+
+.slider-title__main {
+  font-size: clamp(1rem, 6vw, 9rem);
+}
+
+.slider-title__desc {
+  left: 10vw;
+  position: absolute;
+  margin: 0;
+  color: var(--color-desc);
+  max-width: 200px;
+}
+
+@media screen and (min-width: 53em) {
+}
